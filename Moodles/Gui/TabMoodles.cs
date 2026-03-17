@@ -234,7 +234,19 @@ public static class TabMoodles
             }
             ImGuiEx.Tooltip("When manually applied outside the scope of an automation preset, this Moodle will not be removed or overridden unless you right-click it off.");
 
-
+            // Applicant
+            ImGui.TableNextRow();
+            ImGui.TableNextColumn();
+            ImGuiEx.TextV($"Applicant:");
+            ImGuiEx.HelpMarker("Indicates who applied the Moodle. Changes the colour of the duration counter to be green if the character name and world resolve to yourself.");
+            ImGui.TableNextColumn();
+            ImGuiEx.SetNextItemFullWidth();
+            ImGui.InputTextWithHint("##applier", "Player Name@World", ref Selected.Applier, 150, C.Censor ? ImGuiInputTextFlags.Password : ImGuiInputTextFlags.None);
+            if (ImGui.IsItemDeactivatedAfterEdit())
+            {
+                P.IPCProcessor.StatusUpdated(Selected.GUID, false);
+            }
+            
             ImGui.EndTable();
         }
     }
